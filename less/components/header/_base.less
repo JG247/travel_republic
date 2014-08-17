@@ -1,0 +1,25 @@
+header {
+    background-color: @primary-color;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+    padding-bottom: @spacing-tight;
+    padding-top: @spacing-tight;
+
+    #logo {
+        color: @white;
+        margin: 0px;
+    }
+
+    .nav {
+        border-right: solid 1px @white;
+    }
+
+    [data-view-mobile] {
+        position: absolute;
+        top: -36px;
+        margin-right: 14px;
+        right: 0;
+    }
+}

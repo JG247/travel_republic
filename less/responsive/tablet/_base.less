@@ -1,0 +1,57 @@
+/* Display Tablet items */
+[data-view-tablet] , [data-view-desktop] {
+  display: block;
+}
+
+/* Components */
+
+// Search
+#search-component {
+  #search-results  {
+    #profile-details {
+      img {
+        width: @image-size-xl;
+        height: @image-size-xl;
+      }
+      h4 {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+// Header
+header {
+    li[data-view-desktop] {
+        display: none;
+    }
+
+    [data-view-mobile] {
+        display: none;
+    }
+}
+
+// Hotel River
+.hotel-item {
+    height: 291px;
+    width:48%;
+    .hotel-name {
+        font-size: @smaller;
+    }
+    .hotel-stars {
+        h2 {
+            font-size: @smaller;
+        }
+    }
+    .hotel-min-cost {
+        font-size: @smaller;
+    }
+}
+
+.hotel-item-odd {
+    margin-right: 2%;
+}
+
+.hotel-item-even {
+    margin-left: 2%;
+}
