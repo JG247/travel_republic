@@ -1,259 +1,267 @@
 <div ng-controller="HotelsCtrl as hotels">
-    <div class="container">
-        <section>
-            <div ng-show="(data) == null">
-                <div class="loading"></div>
+<div class="container">
+<section>
+    <div ng-show="(data) == null">
+        <div class="loading"></div>
+    </div>
+</section>
+
+<div ng-hide="(data) == null">
+    <h1>Hotels</h1>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <input id="searchInput" ng-model="searchText"  placeholder="Search" class="form-control">
+            <div id="search-result-info">
+                <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length > 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotels found</h3>
+                <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotel found</h3>
+                <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 0">No match found</h3>
             </div>
-        </section>
 
-        <div ng-hide="(data) == null">
-            <h1>Hotels</h1>
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <input id="searchInput" ng-model="searchText"  placeholder="Search" class="form-control">
-                    <div id="search-result-info">
-                        <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length > 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotels found</h3>
-                        <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotel found</h3>
-                        <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 0">No match found</h3>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Button trigger modal -->
-        <button class="btn btn-primary btn-group-justified" data-toggle="modal" data-target="#sortModal">
-            Sort  <span class="glyphicon glyphicon-sort-by-attributes"></span>
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="sortModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="sortModalLabel">Sort order</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div>Order by star</div>
-                        <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length > 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotels found</h3>
-                        <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotel found</h3>
-                        <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 0">No match found</h3>
-                        <div class="btn-group btn-group-justified">
-                            <div class="btn-group">
-                                <button type="button"  ng-click="orderByStarAsc()" class="btn btn-default">Ascending</button>
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" ng-click="orderByStarDesc()" class="btn btn-default">Descending</button>
-                            </div>
-                        </div>
-                        <br>
-                        <div>Order by Distance</div>
-                        <div class="btn-group btn-group-justified">
-                            <div class="btn-group">
-                                <button type="button"  ng-click="orderByDistanceAsc()" class="btn btn-default">Ascending</button>
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" ng-click="orderByDistanceDesc()" class="btn btn-default">Descending</button>
-                            </div>
-                        </div>
-                        <br>
-                        <div>Order by minimum cost</div>
-                        <div class="btn-group btn-group-justified">
-                            <div class="btn-group">
-                                <button type="button"  ng-click="orderByMinCostAsc()" class="btn btn-default">Ascending</button>
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" ng-click="orderByMinCostDesc()" class="btn btn-default">Descending</button>
-                            </div>
-                        </div>
-                        <br>
-                        <div>Order by trp rating</div>
-                        <div class="btn-group btn-group-justified">
-                            <div class="btn-group">
-                                <button type="button"  ng-click="orderByTrpRatingAsc()" class="btn btn-default">Ascending</button>
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" ng-click="orderByTrpRatingDesc()" class="btn btn-default">Descending</button>
-                            </div>
-                        </div>
-                        <br>
-                        <div>Order by user rating</div>
-                        <div class="btn-group btn-group-justified">
-                            <div class="btn-group">
-                                <button type="button"  ng-click="orderByUserRatingAsc()" class="btn btn-default">Ascending</button>
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" ng-click="orderByUserRatingDesc()" class="btn btn-default">Descending</button>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-group-justified" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <br>
-        <!-- Button trigger modal -->
-        <button class="btn btn-primary btn-group-justified" data-toggle="modal" data-target="#myModal">
-            Add Filters <span class="glyphicon glyphicon-plus"></span>
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Filter my search</h4>
-                        <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length > 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotels found</h3>
-                        <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotel found</h3>
-                        <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 0">No match found</h3>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <select id="selectHotel"  ng-model="HotelName"  placeholder="Search" class="form-control">
-                                    <option value=""  selected>--- Select a hotel ---</option>
-                                    <option  ng-repeat="item in data  | orderBy:predicate:reverse "  value="{{item.Name }}">{{item.Name }}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <select  ng-model="Star"  placeholder="Search" class="form-control">
-                                    <option value=""  selected>--- Select star rating ---</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Min Trp Rating</span>
-                                    <input value="0" ng-model="trpMin" type="range" min="-10000" max="465000" class="form-control" placeholder="Minimum TrpRating">
-                                </div>
-                                <span>{{trpMin}}</span>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Min User Rating</span>
-                                    <input value="0" ng-model="minUserRating" type="range" min="-1" max="10" class="form-control" placeholder="Minimum User Rating">
-                                </div>
-                                <span>{{minUserRating}}</span>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Min Cost</span>
-                                    <input value="0" ng-model="minCost" type="range" min="0" max="4000" class="form-control" placeholder="Minimum Cost">
-                                </div>
-                                <span>{{minCost}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-group-justified" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <br>
-        <div ng-hide="(data) == null" class="button">
-            <div class="row">
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-primary btn-group-justified" ng-disabled="currentPage >= Math.floor((NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length / pageSize) - 1" ng-click="currentPage=currentPage+1">
-                        Next
-                    </button>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-default btn-group-justified">
-                        ... {{currentPage+1}}/{{Math.floor((NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length / pageSize) + 1 }} ...
-                    </button>
-                </div>
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-primary btn-group-justified" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-                        Previous
-                    </button>
-                </div>
-            </div>
-            <br>
-            <br>
-        </div>
-        <div ng-repeat="item in NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}  | startFrom:currentPage*pageSize | orderBy:predicate:reverse  | limitTo:pageSize ">
-                <div class="col-sm-6 hotel-item" ng-class-odd="'hotel-item-odd'" ng-class-even="'hotel-item-even'" style=" background-image: url('http://a440bcf2e6b50a18ba5d-234582da1961901721a52db270ba0866.r50.cf3.rackcdn.com/hotel{{ Math.floor((Math.random() * 14) + 1) }}.jpg'); background-repeat: no-repeat;">
-                    <div  >
-                        <div class="row" >
-                            <div class="col-sm-7 hotel-name-location">
-                                <strong><h2 class="text-bg-1 hotel-name">{{item.Name }}</h2></strong>
-                                <strong><h4 class="text-bg-1 hotel-location">{{item.Location }}</h4></strong>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="row">
-                                    <div class="col-sm-12" >
-                                        <h4 ><strong class="hotel-rating" style="">{{item.UserRating}}/10</strong></h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-6 hotel-stars" ><h2>{{item.Stars}} star hotel</h2></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-5 hotel-trp-rating">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        TRP {{item.TrpRating}}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        {{Math.round(item.Distance * 100) / 100}} miles from you
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4"><h2><strong class="hotel-min-cost">{{item.MinCost | currency:"£"}}</strong></h2></div>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        <div ng-hide="(data) == null" class="button">
-            <div class="row">
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-primary btn-group-justified" ng-disabled="currentPage >= Math.floor((NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length / pageSize) - 1" ng-click="currentPage=currentPage+1">
-                        Next
-                    </button>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-default btn-group-justified">
-                        ... {{currentPage+1}}/{{Math.floor((NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length / pageSize) + 1 }} ...
-                    </button>
-                </div>
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-primary btn-group-justified" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-                        Previous
-                    </button>
-                </div>
-            </div>
-            <br>
-            <br>
         </div>
     </div>
+</div>
+
+<!-- Button trigger modal -->
+<button class="btn btn-primary btn-group-justified" data-toggle="modal" data-target="#sortModal">
+    Sort  <span class="glyphicon glyphicon-sort-by-attributes"></span>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="sortModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="sortModalLabel">Sort order</h4>
+            </div>
+            <div class="modal-body">
+                <div>Order by star</div>
+                <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length > 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotels found</h3>
+                <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotel found</h3>
+                <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 0">No match found</h3>
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <button type="button"  ng-click="orderByStarAsc()" class="btn btn-default">Ascending</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" ng-click="orderByStarDesc()" class="btn btn-default">Descending</button>
+                    </div>
+                </div>
+                <br>
+                <div>Order by Distance</div>
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <button type="button"  ng-click="orderByDistanceAsc()" class="btn btn-default">Ascending</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" ng-click="orderByDistanceDesc()" class="btn btn-default">Descending</button>
+                    </div>
+                </div>
+                <br>
+                <div>Order by minimum cost</div>
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <button type="button"  ng-click="orderByMinCostAsc()" class="btn btn-default">Ascending</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" ng-click="orderByMinCostDesc()" class="btn btn-default">Descending</button>
+                    </div>
+                </div>
+                <br>
+                <div>Order by trp rating</div>
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <button type="button"  ng-click="orderByTrpRatingAsc()" class="btn btn-default">Ascending</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" ng-click="orderByTrpRatingDesc()" class="btn btn-default">Descending</button>
+                    </div>
+                </div>
+                <br>
+                <div>Order by user rating</div>
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <button type="button"  ng-click="orderByUserRatingAsc()" class="btn btn-default">Ascending</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" ng-click="orderByUserRatingDesc()" class="btn btn-default">Descending</button>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-group-justified" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<!-- Button trigger modal -->
+<button class="btn btn-primary btn-group-justified" data-toggle="modal" data-target="#myModal">
+    Add Filters <span class="glyphicon glyphicon-plus"></span>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Filter my search</h4>
+                <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length > 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotels found</h3>
+                <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 1">{{(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length}} hotel found</h3>
+                <h3 ng-show="(NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length == 0">No match found</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <select id="selectHotel"  ng-model="HotelName"  placeholder="Search" class="form-control">
+                            <option value=""  selected>--- Select a hotel ---</option>
+                            <option  ng-repeat="item in data  | orderBy:predicate:reverse "  value="{{item.Name }}">{{item.Name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <select  ng-model="Star" id="selectStar"  placeholder="Search" class="form-control">
+                            <option value=""  selected>--- Select star rating ---</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">Min Trp Rating</span>
+                            <input value="0" ng-model="trpMin" type="range" min="-10000" max="465000" class="form-control" placeholder="Minimum TrpRating">
+                        </div>
+                        <span>{{trpMin}}</span>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">Min User Rating</span>
+                            <input value="0" ng-model="minUserRating" type="range" min="-1" max="10" class="form-control" placeholder="Minimum User Rating">
+                        </div>
+                        <span>{{minUserRating}}</span>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">Min Cost</span>
+                            <input value="0" id="minCost" ng-model="minCost" type="range" min="0" max="4000" class="form-control" placeholder="Minimum Cost">
+                        </div>
+                        <span>{{minCost}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" ng-click="resetFilters()" class="btn btn-danger btn-group-justified">
+                    Reset filters <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-group-justified" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<button type="button" ng-click="resetFilters()" class="btn btn-danger btn-group-justified">
+    Reset filters <span class="glyphicon glyphicon-remove"></span>
+</button>
+<br>
+<div ng-hide="(data) == null" class="button">
+    <div class="row">
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary btn-group-justified" ng-disabled="currentPage >= Math.floor((NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length / pageSize) - 1" ng-click="currentPage=currentPage+1">
+                Next
+            </button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-default btn-group-justified">
+                ... {{currentPage+1}}/{{Math.floor((NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length / pageSize) + 1 }} ...
+            </button>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary btn-group-justified" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                Previous
+            </button>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
+<div ng-repeat="item in NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}  | startFrom:currentPage*pageSize | orderBy:predicate:reverse  | limitTo:pageSize ">
+    <div class="col-sm-6 hotel-item" ng-class-odd="'hotel-item-odd'" ng-class-even="'hotel-item-even'" style=" background-image: url('http://a440bcf2e6b50a18ba5d-234582da1961901721a52db270ba0866.r50.cf3.rackcdn.com/hotel{{ Math.floor((Math.random() * 14) + 1) }}.jpg'); background-repeat: no-repeat;">
+        <div  >
+            <div class="row" >
+                <div class="col-sm-7 hotel-name-location">
+                    <strong><h2 class="text-bg-1 hotel-name">{{item.Name }}</h2></strong>
+                    <strong><h4 class="text-bg-1 hotel-location">{{item.Location }}</h4></strong>
+                </div>
+                <div class="col-sm-5">
+                    <div class="row">
+                        <div class="col-sm-12" >
+                            <h4 ><strong class="hotel-rating" style="">{{item.UserRating}}/10</strong></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-sm-6 hotel-stars" ><h2>{{item.Stars}} star hotel</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5 hotel-trp-rating">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            TRP {{item.TrpRating}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{Math.round(item.Distance * 100) / 100}} miles from you
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4"><h2><strong class="hotel-min-cost">{{item.MinCost | currency:"£"}}</strong></h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-hide="(data) == null" class="button">
+    <div class="row">
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary btn-group-justified" ng-disabled="currentPage >= Math.floor((NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length / pageSize) - 1" ng-click="currentPage=currentPage+1">
+                Next
+            </button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-default btn-group-justified">
+                ... {{currentPage+1}}/{{Math.floor((NewFilteredData  | filter:searchText | filter:{Stars:(Star), Name:(HotelName)}).length / pageSize) + 1 }} ...
+            </button>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary btn-group-justified" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                Previous
+            </button>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
+</div>
 </div>

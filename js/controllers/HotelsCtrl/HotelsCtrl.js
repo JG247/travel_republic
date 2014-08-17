@@ -13,10 +13,21 @@ define([
 ], function ( angular, ngRoute, $ ) {
     function HotelsCtrl(app, dataPath){
         this.app = app,
-        $jq = jQuery.noConflict();
+            $jq = jQuery.noConflict();
         app.controller('HotelsCtrl', function($scope, $http, $filter){
             $http.get(dataPath).success(function(data) {
                 $scope.data = data.Establishments;
+
+                $scope.resetFilters = function() {
+
+                    $scope.trpMin = -10000;
+                    $scope.minUserRating = -1;
+                    $scope.minCost = 0;
+                    document.getElementById("selectHotel").selectedIndex = 0;
+                    document.getElementById("selectStar").selectedIndex = 0;
+                    $scope.Star = "";
+                    $scope.HotelName = "";
+                };
 
                 $scope.currentPage = 0;
                 $scope.pageSize = 10;
