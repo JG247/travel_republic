@@ -1,0 +1,40 @@
+/* Display Tablet items */
+[data-view-tablet] , [data-view-desktop] {
+  display: block;
+}
+
+/* Components */
+#search-component {
+  #search-results  {
+    #profile-details {
+      img {
+        width: @image-size-xxl;
+        height: @image-size-xxl;
+      }
+      h4 {
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+
+// Header
+header {
+    [data-view-mobile] {
+        display: none;
+    }
+}
+
+// Hotel River
+.hotel-item {
+    width:48%;
+    height: 400px;
+}
+
+.hotel-item-odd {
+    margin-right: 2%;
+}
+
+.hotel-item-even {
+    margin-left: 2%;
+}
